@@ -1,0 +1,158 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+}
+
+.container{
+    width:500px;
+    background:#fff;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
+}
+
+.input-section{
+    display:flex;
+    gap:10px;
+}
+
+.input-section input{
+    flex:1;
+}
+
+input{
+    padding:12px;
+    border:2px solid #ddd;
+    border-radius:8px;
+    outline:none;
+    transition:.3s;
+}
+
+input:focus{
+    border-color:#667eea;
+    box-shadow:0 0 8px rgba(102,126,234,.5);
+}
+
+button{
+    border:none;
+    cursor:pointer;
+}
+
+.input-section button{
+    background:#667eea;
+    color:white;
+    padding:12px 18px;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.input-section button:hover{
+    background:#4f5bd5;
+    transform:scale(1.05);
+}
+
+#searchInput{
+    width:100%;
+    margin-top:15px;
+}
+
+.counter{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    font-weight:bold;
+}
+
+.clear-btn{
+    width:100%;
+    padding:10px;
+    background:#ff4d4d;
+    color:white;
+    border-radius:8px;
+    margin-bottom:15px;
+    transition:.3s;
+}
+
+.clear-btn:hover{
+    background:#d60000;
+}
+
+ul{
+    list-style:none;
+}
+
+li{
+    background:#f5f5f5;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    animation:slideIn .3s ease;
+}
+
+li:hover{
+    transform:translateX(5px);
+    background:#eef1ff;
+}
+
+.task-text{
+    flex:1;
+    cursor:pointer;
+}
+
+.completed{
+    text-decoration:line-through;
+    color:gray;
+}
+
+.actions button{
+    margin-left:5px;
+    padding:6px 10px;
+    border-radius:5px;
+    color:white;
+}
+
+.edit-btn{
+    background:#28a745;
+}
+
+.edit-btn:hover{
+    background:#1e7e34;
+}
+
+.delete-btn{
+    background:#dc3545;
+}
+
+.delete-btn:hover{
+    background:#b21f2d;
+}
+
+@keyframes slideIn{
+    from{
+        opacity:0;
+        transform:translateY(-10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
