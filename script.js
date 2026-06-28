@@ -1,116 +1,109 @@
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+// Popup Elements
+var addbtn = document.getElementById("add");
+var overlay = document.getElementById("popup-overlay");
+var box = document.getElementById("popup-box");
 
-function saveTasks() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-}
+// Open Popup
+addbtn.addEventListener("click", function () {
+    overlay.style.display = "block";
+    box.style.display = "block";
+});
 
-function updateCounters() {
-    document.getElementById("total").textContent = tasks.length;
+// Close Popup
+var cancelbtn = document.getElementById("cancel");
 
-    let completed = tasks.filter(task => task.completed).length;
-    document.getElementById("completed").textContent = completed;
+cancelbtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    overlay.style.display = "none";
+    box.style.display = "none";
+});
 
-    document.getElementById("pending").textContent =
-        tasks.length - completed;
-}
+// Input Elements
+var container = document.getElementById("container");
+var addcontent = document.getElementById("add-content");
 
-function renderTasks() {
-    const taskList = document.getElementById("taskList");
-    taskList.innerHTML = "";
+var bname = document.getElementById("bookname");
+var aname = document.getElementById("authorname");
+var content = document.getElementById("content");
 
-    tasks.forEach((task, index) => {
-        let li = document.createElement("li");
+// Load Books from Local Storage
+window.onload = function () {
 
-        li.innerHTML = `
-            <span class="task-text ${task.completed ? 'completed' : ''}"
-                  onclick="toggleTask(${index})">
-                ${task.text}
-            </span>
+    var books = JSON.parse(localStorage.getItem("books")) || [];
 
-            <div class="actions">
-                <button class="edit-btn"
-                        onclick="editTask(${index})">
-                    Edit
-                </button>
-
-                <button class="delete-btn"
-                        onclick="deleteTask(${index})">
-                    Delete
-                </button>
-            </div>
-        `;
-
-        taskList.appendChild(li);
+    books.forEach(function (book) {
+        createBook(book.title, book.author, book.description);
     });
 
-    updateCounters();
-    saveTasks();
-}
+};
 
-function addTask() {
-    let input = document.getElementById("taskInput");
-    let text = input.value.trim();
+// Add Book
+addcontent.addEventListener("click", function (event) {
 
-    if (text === "") {
-        alert("Enter a task");
+    event.preventDefault();
+
+    if (
+        bname.value.trim() === "" ||
+        aname.value.trim() === "" ||
+        content.value.trim() === ""
+    ) {
+        alert("Please fill all fields");
         return;
     }
 
-    tasks.push({
-        text: text,
-        completed: false
+    createBook(bname.value, aname.value, content.value);
+
+    var books = JSON.parse(localStorage.getItem("books")) || [];
+
+    books.push({
+        title: bname.value,
+        author: aname.value,
+        description: content.value
     });
 
-    input.value = "";
-    renderTasks();
+    localStorage.setItem("books", JSON.stringify(books));
+
+    bname.value = "";
+    aname.value = "";
+    content.value = "";
+
+    overlay.style.display = "none";
+    box.style.display = "none";
+
+});
+
+// Create Book Card
+function createBook(title, author, description) {
+
+    var div = document.createElement("div");
+
+    div.setAttribute("id", "second");
+
+    div.innerHTML = `
+        <h2>${title}</h2>
+        <h4>${author}</h4>
+        <p>${description}</p>
+        <button id="del" onclick="del(event)">Delete</button>
+    `;
+
+    container.append(div);
+
 }
 
-function toggleTask(index) {
-    tasks[index].completed = !tasks[index].completed;
-    renderTasks();
-}
+// Delete Book
+function del(event) {
 
-function deleteTask(index) {
-    tasks.splice(index, 1);
-    renderTasks();
-}
+    var card = event.target.parentElement;
+    var title = card.querySelector("h2").innerText;
 
-function editTask(index) {
-    let newTask = prompt("Edit Task", tasks[index].text);
+    var books = JSON.parse(localStorage.getItem("books")) || [];
 
-    if (newTask !== null && newTask.trim() !== "") {
-        tasks[index].text = newTask.trim();
-        renderTasks();
-    }
-}
-
-function clearAll() {
-    if (confirm("Delete all tasks?")) {
-        tasks = [];
-        renderTasks();
-    }
-}
-
-function searchTask() {
-    let search =
-        document.getElementById("searchInput")
-        .value
-        .toLowerCase();
-
-    let items =
-        document.querySelectorAll("#taskList li");
-
-    items.forEach(item => {
-        let text =
-            item.querySelector(".task-text")
-            .textContent
-            .toLowerCase();
-
-        item.style.display =
-            text.includes(search)
-            ? "flex"
-            : "none";
+    books = books.filter(function (book) {
+        return book.title !== title;
     });
-}
 
-renderTasks();
+    localStorage.setItem("books", JSON.stringify(books));
+
+    card.remove();
+
+}
