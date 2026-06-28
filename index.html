@@ -1,34 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> To-Do List</title>
+    <title>BookSky</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="container">
-        <h2>📝 To-Do List</h2>
+    <!-- Navbar -->
 
-        <div class="input-section">
-            <input type="text" id="taskInput" placeholder="Enter a task">
-            <button onclick="addTask()">Add</button>
-        </div>
-
-        <input type="text" id="searchInput" placeholder="🔍 Search task..." onkeyup="searchTask()">
-
-        <div class="counter">
-            <span>Total: <span id="total">0</span></span>
-            <span>Completed: <span id="completed">0</span></span>
-            <span>Pending: <span id="pending">0</span></span>
-        </div>
-
-        <button class="clear-btn" onclick="clearAll()">Clear All</button>
-
-        <ul id="taskList"></ul>
+    <div class="navbar">
+        <h1>📚 BookSky</h1>
     </div>
 
+    <!-- Book Container -->
+
+    <div id="container">
+
+        <!-- Default Book -->
+
+        <div id="second">
+
+            <h2>Wings of Fire</h2>
+            <h4>Dr. A. P. J. Abdul Kalam</h4>
+            <p>
+                Wings of Fire is the inspiring autobiography of Dr. A. P. J. Abdul Kalam.
+                It tells the story of his journey from a small town to becoming India's
+                Missile Man and the President of India.
+            </p>
+            <button id="del" onclick="del(event)">Delete</button>
+
+        </div>
+
+    </div>
+
+    <!-- Overlay -->
+
+    <div id="popup-overlay"></div>
+
+    <!-- Popup Box -->
+
+    <div id="popup-box">
+
+        <h2>Add Book</h2>
+
+        <form>
+
+            <input type="text" id="bookname" placeholder="Book Name" autocomplete="off">
+
+            <input type="text" id="authorname" placeholder="Author Name" autocomplete="off">
+
+            <textarea id="content" placeholder="Short Description"></textarea>
+
+            <button id="add-content">
+                ADD
+            </button>
+
+            <button id="cancel">
+                CANCEL
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Floating Add Button -->
+
+    <button id="add">+</button>
+
     <script src="script.js"></script>
+
 </body>
+
 </html>
